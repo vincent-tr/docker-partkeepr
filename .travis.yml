@@ -1,0 +1,27 @@
+language: generic
+
+services:
+  - docker
+
+env:
+  global:
+    IMAGE_NAME=rclsilver/partkeepr
+    IMAGE_VERSION=1.4.0
+
+install:
+  - |
+    docker build \
+      -t ${IMAGE_NAME}:v${IMAGE_VERSION} \
+      -f Dockerfile \
+      .
+
+after_success:
+  - echo "${DOCKER_PASSWORD}" | docker login --username="${DOCKER_USERNAME}" --password-stdin
+  - docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+  - docker push "${IMAGE_NAME}:latest"
+  - docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:v${IMAGE_VERSION}"
+  - docker push "${IMAGE_NAME}:v${IMAGE_VERSION}"
+
+branches:
+  only:
+    - master
