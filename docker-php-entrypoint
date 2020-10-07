@@ -151,17 +151,17 @@ cat <<EOF > /var/www/html/app/config/parameters.php
 /**
  * Specifies if the frontend should perform an auto-login
  */
-\$container->setParameter('partkeepr.frontend.auto_login.enabled', false);
+\$container->setParameter('partkeepr.frontend.auto_login.enabled', ${PARTKEEPR_AUTO_LOGIN_ENABLED:-false});
 
 /**
  * Specifies the auto-login username
  */
-\$container->setParameter('partkeepr.frontend.auto_login.username', 'admin');
+\$container->setParameter('partkeepr.frontend.auto_login.username', '${PARTKEEPR_AUTO_LOGIN_USERNAME:-admin}');
 
 /**
  * Specifies the auto-login password
  */
-\$container->setParameter('partkeepr.frontend.auto_login.password', 'admin');
+\$container->setParameter('partkeepr.frontend.auto_login.password', '${PARTKEEPR_AUTO_LOGIN_PASSWORD:-admin}');
 
 /**
  * Specifies the base_url for the PartKeepr frontend.
