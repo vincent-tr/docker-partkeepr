@@ -22,7 +22,7 @@ RUN apt update -y && \
     pecl clear-cache && \
     # Required extensions
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu && \
-    docker-php-ext-install -j$(nproc) gd ldap pdo_pgsql intl opcache && \
+    docker-php-ext-install -j$(nproc) gd ldap pdo_pgsql pdo_mysql intl opcache && \
     docker-php-ext-enable --ini-name 01-apcu.ini apcu && \
     docker-php-ext-enable --ini-name 02-apcu_bc.ini apc && \
     # Phing
