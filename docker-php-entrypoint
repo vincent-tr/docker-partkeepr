@@ -4,9 +4,6 @@ set -e
 # generate parameters.php
 cat <<EOF > /var/www/html/app/config/parameters.php
 <?php
-function emptyToNull(\$value) {
-  return empty(\$value) ? null : \$value;
-}
 
 /***********************************************************************************************************************
  * This is an example file for all PartKeepr-related configuration options.
@@ -99,10 +96,10 @@ function emptyToNull(\$value) {
 \$container->setParameter('fr3d_ldap.driver.port', ${PARTKEEPR_LDAP_PORT:-389});
 
 // The username to use for LDAP queries
-\$container->setParameter('fr3d_ldap.driver.username', emptyToNull('${PARTKEEPR_LDAP_BIND_DN}'));
+\$container->setParameter('fr3d_ldap.driver.username', '${PARTKEEPR_LDAP_BIND_DN}');
 
 // The password to use for LDAP queries
-\$container->setParameter('fr3d_ldap.driver.password', emptyToNull('${PARTKEEPR_LDAP_BIND_PW}'));
+\$container->setParameter('fr3d_ldap.driver.password', '${PARTKEEPR_LDAP_BIND_PW}');
 
 // true to require a DN for binding attemts, false otherwise
 \$container->setParameter('fr3d_ldap.driver.bindRequiresDn', true);
@@ -131,7 +128,7 @@ function emptyToNull(\$value) {
 \$container->setParameter('fr3d_ldap.user.enabled', ${PARTKEEPR_FR3D_LDAP_USER_ENABLED:-false});
 
 // sets the base DN
-\$container->setParameter('fr3d_ldap.user.baseDn', emptyToNull('${PARTKEEPR_LDAP_BASE_DN}'));
+\$container->setParameter('fr3d_ldap.user.baseDn', '${PARTKEEPR_LDAP_BASE_DN:-dc=example,dc=com}');
 
 // The filter to use for queries
 \$container->setParameter('fr3d_ldap.user.filter', null);
