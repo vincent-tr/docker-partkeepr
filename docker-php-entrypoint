@@ -4,8 +4,8 @@ set -e
 # generate parameters.php
 cat <<EOF > /var/www/html/app/config/parameters.php
 <?php
-function emptyToNull($value) {
-  return empty($value) ? null : $value;
+function emptyToNull(\$value) {
+  return empty(\$value) ? null : \$value;
 }
 
 /***********************************************************************************************************************
