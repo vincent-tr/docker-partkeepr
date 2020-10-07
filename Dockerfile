@@ -25,6 +25,8 @@ RUN apt update -y && \
     docker-php-ext-install -j$(nproc) gd ldap pdo_pgsql intl opcache && \
     docker-php-ext-enable --ini-name 01-apcu.ini apcu && \
     docker-php-ext-enable --ini-name 02-apcu_bc.ini apc && \
+    # Phing
+    curl -sL https://www.phing.info/get/phing-latest.phar -o /usr/local/bin/phing && chmod +x /usr/local/bin/phing && \
     # Apache mod_rewrite
     a2enmod rewrite && \
     # PHP settings
@@ -36,11 +38,6 @@ RUN apt update -y && \
 RUN cd /var/www/html && \
     curl -sL https://downloads.partkeepr.org/partkeepr-${PARTKEEPR_VERSION}.tbz2 | bsdtar --strip-components=1 -xvf- && \
     chown -R www-data: /var/www/html
-
-# Phing
-RUN curl -sL https://www.phing.info/get/phing-latest.phar -o /usr/local/bin/phing && chmod +x /usr/local/bin/phing && \
-    su - www-data -s /bin/bash -c 'cd /var/www/html && phing regenerate-environment' && \
-    rm /usr/local/bin/phing
 
 # PartKeepr crontab
 COPY crontab /etc/cron.d/partkeepr
