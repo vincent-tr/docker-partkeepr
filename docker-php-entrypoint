@@ -125,7 +125,7 @@ cat <<EOF > /var/www/html/app/config/parameters.php
 \$container->setParameter('fr3d_ldap.driver.accountDomainNameShort', null);
 
 // set to true to enable LDAP
-\$container->setParameter('fr3d_ldap.user.enabled', true);
+\$container->setParameter('fr3d_ldap.user.enabled', ${PARTKEEPR_FR3D_LDAP_USER_ENABLED:-false});
 
 // sets the base DN
 \$container->setParameter('fr3d_ldap.user.baseDn', '${PARTKEEPR_LDAP_BASE_DN}');
